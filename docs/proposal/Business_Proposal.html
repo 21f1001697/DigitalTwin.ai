@@ -1,0 +1,287 @@
+<title>DigitalTwin.ai — Round 2 Business Proposal</title>
+<style>
+:root{
+  --bg:#EEF0F2; --panel:#FFFFFF; --ink:#14202B; --body:#3A4552; --muted:#6B7684;
+  --line:#CBD2D9; --grid:#DCE1E6;
+  --accent:#C4622D; --accent-ink:#7A3813; --accent-soft:#F5E2D3;
+  --teal:#3C6E71; --teal-soft:#DCEAEA;
+  --panel-alt:#F3F5F6;
+  --red:#B3402F; --red-soft:#F6DCD6;
+  --green:#1E6B3A; --green-soft:#DCEFE1;
+  --code-bg:#101820;
+  --shadow: 0 1px 2px rgba(20,32,43,0.06), 0 8px 24px rgba(20,32,43,0.05);
+}
+:root[data-theme="dark"]{
+  --bg:#0E1418; --panel:#151D24; --ink:#E7ECEF; --body:#B8C2CB; --muted:#7E8B96;
+  --line:#28333C; --grid:#1E2830;
+  --accent:#E8823E; --accent-ink:#FFD9B8; --accent-soft:#2C1D12;
+  --teal:#5FA8AC; --teal-soft:#122A2A;
+  --panel-alt:#111A20;
+  --red:#E0685A; --red-soft:#2B1512;
+  --green:#7FDCA0; --green-soft:#0F2A1A;
+  --code-bg:#0A0F13;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1418; --panel:#151D24; --ink:#E7ECEF; --body:#B8C2CB; --muted:#7E8B96;
+    --line:#28333C; --grid:#1E2830;
+    --accent:#E8823E; --accent-ink:#FFD9B8; --accent-soft:#2C1D12;
+    --teal:#5FA8AC; --teal-soft:#122A2A;
+    --panel-alt:#111A20;
+    --red:#E0685A; --red-soft:#2B1512;
+    --green:#7FDCA0; --green-soft:#0F2A1A;
+    --code-bg:#0A0F13;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:
+    repeating-linear-gradient(0deg, var(--grid) 0px, var(--grid) 1px, transparent 1px, transparent 88px),
+    repeating-linear-gradient(90deg, var(--grid) 0px, var(--grid) 1px, transparent 1px, transparent 88px),
+    var(--bg);
+  color:var(--body);
+  font-family: -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size:15px; line-height:1.65;
+}
+::selection{ background:var(--accent-soft); color:var(--accent-ink); }
+.wrap{ display:flex; max-width:1180px; margin:0 auto; }
+.toc{ width:250px; flex-shrink:0; position:sticky; top:0; align-self:flex-start; height:100vh; overflow-y:auto; padding:36px 18px 36px 28px; border-right:1px solid var(--line); }
+.toc-brand{ font-family:"Bahnschrift","Helvetica Neue Condensed","Arial Narrow",sans-serif; font-weight:700; letter-spacing:0.02em; font-size:15px; color:var(--ink); text-transform:uppercase; margin-bottom:2px; }
+.toc-brand .dot{ color:var(--accent); }
+.toc-sub{ font-size:11px; color:var(--muted); margin-bottom:26px; letter-spacing:0.03em;}
+.toc a{ display:block; font-size:12.5px; color:var(--muted); text-decoration:none; padding:6px 0 6px 14px; border-left:2px solid transparent; margin-bottom:1px; transition:color .15s, border-color .15s; }
+.toc a .n{ font-variant-numeric:tabular-nums; color:var(--muted); margin-right:6px; opacity:.7;}
+.toc a:hover{ color:var(--ink); }
+.toc a.active{ color:var(--accent); border-left-color:var(--accent); font-weight:600; }
+main{ flex:1; min-width:0; padding:0 0 120px; }
+.cover{ padding:68px 60px 48px; border-bottom:1px solid var(--line); }
+.cover-eyebrow{ font-size:11.5px; letter-spacing:0.16em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:16px; }
+.cover-title{ font-family:"Bahnschrift","Helvetica Neue Condensed","Arial Narrow",sans-serif; font-weight:700; font-size:46px; line-height:1.05; color:var(--ink); margin:0 0 6px; letter-spacing:-0.01em; text-wrap:balance; }
+.cover-title .accent{ color:var(--accent); }
+.cover-tag{ font-size:16px; color:var(--body); max-width:640px; margin:14px 0 30px; font-style:italic; }
+.cover-meta{ display:grid; grid-template-columns:repeat(4,1fr); gap:0; border-top:1px solid var(--line); }
+.cover-meta div{ padding:16px 20px 0 0; border-right:1px solid var(--line); }
+.cover-meta div:last-child{ border-right:none; }
+.cover-meta .k{ font-size:10.5px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:5px;}
+.cover-meta .v{ font-size:13px; color:var(--ink); font-weight:600; }
+section{ padding:42px 60px; border-bottom:1px solid var(--line); scroll-margin-top:20px; }
+.sec-eyebrow{ font-family:"Bahnschrift","Helvetica Neue Condensed","Arial Narrow",sans-serif; font-size:12px; letter-spacing:0.14em; color:var(--accent); font-weight:700; text-transform:uppercase; margin-bottom:6px; display:flex; align-items:center; gap:10px; }
+.sec-eyebrow .num{ display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:4px; background:var(--accent-soft); color:var(--accent-ink); font-size:11px; font-weight:800; }
+h2.sec-title{ font-family:"Bahnschrift","Helvetica Neue Condensed","Arial Narrow",sans-serif; font-size:27px; color:var(--ink); margin:0 0 20px; font-weight:700; text-wrap:balance; }
+h3{ font-size:14px; color:var(--ink); text-transform:uppercase; letter-spacing:0.04em; margin:28px 0 10px; font-weight:700; }
+h3:first-of-type{ margin-top:4px; }
+p{ margin:0 0 12px; max-width:76ch; }
+ul,ol{ margin:0 0 14px; padding-left:20px; max-width:76ch; }
+li{ margin-bottom:6px; }
+strong{ color:var(--ink); font-weight:700; }
+.pull{ background:var(--teal-soft); border-left:3px solid var(--teal); padding:14px 18px; border-radius:0 6px 6px 0; margin:16px 0 20px; max-width:72ch; }
+.pull p{ margin:0; font-size:14px; color:var(--ink); }
+.assume{ background:var(--panel-alt); border:1px solid var(--line); border-radius:8px; padding:16px 20px; margin:14px 0 20px; }
+.assume .lbl{ font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); font-weight:700; margin-bottom:8px;}
+.stat-row{ display:flex; gap:14px; flex-wrap:wrap; margin:18px 0 22px; }
+.stat{ flex:1 1 150px; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:16px 18px; box-shadow:var(--shadow); }
+.stat .num{ font-family:"Bahnschrift","Helvetica Neue Condensed",sans-serif; font-size:25px; font-weight:700; color:var(--accent); font-variant-numeric:tabular-nums; }
+.stat .lbl{ font-size:11px; color:var(--muted); margin-top:2px; }
+table{ width:100%; border-collapse:collapse; margin:8px 0 22px; font-size:13px; }
+thead th{ background:var(--panel-alt); color:var(--ink); text-align:left; font-weight:700; padding:10px 12px; border-bottom:2px solid var(--line); font-size:11.5px; text-transform:uppercase; letter-spacing:.03em; }
+tbody td{ padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top; color:var(--body);}
+tbody tr:nth-child(even){ background:var(--panel-alt); }
+tbody td:first-child{ color:var(--ink); font-weight:600; }
+.tbl-wrap{ overflow-x:auto; }
+.risk-sev{ display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:6px; }
+.sev-crit{ background:var(--red); } .sev-high{ background:var(--accent); } .sev-med{ background:var(--teal); }
+.persona{ border:1px solid var(--line); border-radius:8px; padding:16px 18px; margin-bottom:12px; background:var(--panel); box-shadow:var(--shadow); }
+.persona .head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px;}
+.persona .role{ font-family:"Bahnschrift","Helvetica Neue Condensed",sans-serif; font-weight:700; color:var(--accent); font-size:12.5px; letter-spacing:.03em; text-transform:uppercase;}
+.persona .cadence{ font-size:11px; color:var(--muted); font-weight:600; }
+.persona p{ margin:0; font-size:13px; }
+.phase-row{ display:flex; gap:12px; margin:10px 0 22px; flex-wrap:wrap; }
+.phase{ flex:1 1 220px; border:1px solid var(--line); border-radius:8px; padding:14px 16px; background:var(--panel); box-shadow:var(--shadow); }
+.phase .ph-eyebrow{ font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); font-weight:700; }
+.phase .ph-name{ font-family:"Bahnschrift","Helvetica Neue Condensed",sans-serif; font-size:15px; font-weight:700; color:var(--ink); margin:2px 0 6px;}
+.phase p{ font-size:11.5px; margin:0; }
+footer{ padding:36px 60px; color:var(--muted); font-size:11.5px; }
+@media (max-width:880px){
+  .toc{ display:none; } .cover, section{ padding:30px 20px; } .cover-title{ font-size:34px; } .cover-meta{ grid-template-columns:repeat(2,1fr); }
+}
+</style>
+
+<div class="wrap">
+  <nav class="toc">
+    <div class="toc-brand">DigitalTwin<span class="dot">.ai</span></div>
+    <div class="toc-sub">Round 2 · Business Proposal</div>
+    <a href="#s1"><span class="n">1</span>Problem Framing</a>
+    <a href="#s2"><span class="n">2</span>Solution Design</a>
+    <a href="#s3"><span class="n">3</span>Target Users</a>
+    <a href="#s4"><span class="n">4</span>Business Case &amp; Impact</a>
+    <a href="#s5"><span class="n">5</span>Phased Roadmap</a>
+    <a href="#s6"><span class="n">6</span>Risks &amp; Mitigations</a>
+    <a href="#s7"><span class="n">7</span>Working Assumptions</a>
+  </nav>
+
+  <main>
+    <div class="cover">
+      <div class="cover-eyebrow">Accenture Innovation Challenge 2026 — Round 2</div>
+      <h1 class="cover-title">Digital<span class="accent">Twin</span>.ai</h1>
+      <p class="cover-tag">A live, camera-and-sensor-fused model of a mixed-instrumentation assembly line that predicts bottlenecks and defect exposure before either happens — and stays useful at the stations no sensor has ever touched.</p>
+      <div class="cover-meta">
+        <div><div class="k">Team</div><div class="v">CUBIX</div></div>
+        <div><div class="k">Members</div><div class="v">Kiran Jadhav · Varnit · Sneha Dutta</div></div>
+        <div><div class="k">Institution</div><div class="v">IIT Madras — Data Science &amp; Applications</div></div>
+        <div><div class="k">Document</div><div class="v">Detailed Business Proposal v1.0</div></div>
+      </div>
+    </div>
+
+    <section id="s1">
+      <div class="sec-eyebrow"><span class="num">1</span>Problem Framing</div>
+      <h2 class="sec-title">The gap Round 1 named — and what Round 2 adds</h2>
+      <p>In Round 1 we argued that a single slow or degrading station on an assembly line rarely announces itself — it shows up as an upstream queue, a starved downstream station, or a defect that isn't caught until dozens of vehicles later. Round 2's brief sharpens that problem with a fact every real plant already knows: <strong>the line is never uniformly instrumented.</strong> A 30–50 station mixed-model line is a patchwork built up over a decade or more — some stations wired into the MES with PLC-level telemetry, others running on a laminated checklist and an operator's judgment.</p>
+      <p>That patchwork changes what a "digital twin" has to be. It cannot assume a fully sensored ideal factory, because that factory doesn't exist. It has to be honest about which parts of its own picture are measured and which are inferred — and it has to keep working, safely, around live production it is not allowed to touch except in a handful of scheduled maintenance windows a year.</p>
+
+      <h3>Compounding factors from the Round 2 brief</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Real-world complexity</th><th>Why it defeats a naive twin</th></tr></thead>
+        <tbody>
+          <tr><td>Uneven sensor coverage</td><td>A model trained to expect PLC-quality data everywhere breaks silently at the manual-checklist stations — exactly where problems are least visible today</td></tr>
+          <tr><td>Multi-causal, intermittent root causes</td><td>Equipment wear, operator variation, upstream part quality and environment rarely act alone; a single-signal anomaly flag can't separate them</td></tr>
+          <tr><td>No live retrofit access</td><td>New sensors can only go in during scheduled maintenance windows — the twin must earn its value with the instrumentation already on the floor</td></tr>
+          <tr><td>Delayed defect surfacing</td><td>A defect from Station 8 may only be caught at Station 41 — by which point the true exposure window has to be reconstructed after the fact</td></tr>
+          <tr><td>Stakeholder-specific views</td><td>A floor supervisor, a plant manager and a leadership sponsor are reading the same twin for three different decisions on three different clocks</td></tr>
+          <tr><td>Multi-site generalisation</td><td>Layout, equipment vintage and sensor maturity all vary site to site — a model tuned to one line's quirks won't transfer</td></tr>
+          <tr><td>Trust decays with false alarms</td><td>A prediction that doesn't materialise costs more than a missed one, because floor staff stop watching the ones that follow</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="pull"><p>The problem isn't just "predict bottlenecks and defects." It's <strong>predict them credibly, at a station you may not be able to fully see, without ever having touched the line to get there.</strong></p></div>
+    </section>
+
+    <section id="s2">
+      <div class="sec-eyebrow"><span class="num">2</span>Solution Design</div>
+      <h2 class="sec-title">SEE → MODEL → PREDICT → ACT, rebuilt for uneven instrumentation</h2>
+
+      <h3>2.1 Modelling approach — what's explicit vs. inferred</h3>
+      <p>We model every station along the same four attributes regardless of instrumentation level — <strong>cycle time, throughput, defect signature, and confidence</strong> — but the source of each attribute differs by station tier:</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Station tier</th><th>What's measured directly</th><th>What's inferred</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Tier A — Instrumented</strong> (PLC/MES telemetry: torque, vibration, temperature)</td><td>Cycle time, process parameters, fault codes</td><td>Nothing — signals are used as-is with calibrated confidence near 1.0</td></tr>
+          <tr><td><strong>Tier B — Vision-augmented</strong> (a camera reused from Round 1's core mechanism)</td><td>Cycle time, motion/hesitation, rework loops via optical flow</td><td>Torque/temperature proxies, correlated against any nearby Tier A stations of the same type</td></tr>
+          <tr><td><strong>Tier C — Manual-checklist only</strong> (no sensor, no camera line-of-sight)</td><td>Pass/fail and operator notes at checklist cadence</td><td>Cycle time and health, inferred from upstream/downstream buffer behaviour and historical variance for that station</td></tr>
+        </tbody>
+      </table></div>
+      <p>Every inferred value carries an explicit confidence score. A Tier C station's prediction is never displayed with the same visual certainty as a Tier A one — this is a hard UI rule, not a styling choice, because it's the single biggest lever against false-alarm-driven trust erosion.</p>
+
+      <h3>2.2 Predictive techniques — matched to what data actually supports</h3>
+      <ul>
+        <li><strong>Statistical process control (SPC)</strong> at Tier A/B stations with enough history — cheap, interpretable, and a good first filter before anything model-based runs</li>
+        <li><strong>Unsupervised anomaly detection</strong> (Isolation Forest, carried over from the Round 1 prototype) for stations with no labelled fault data — learns each station's own "normal" rather than assuming one factory-wide baseline</li>
+        <li><strong>Physics-informed constraints</strong> on the line-graph simulation (conservation of flow through buffers, monotonic cycle-time bounds) so the propagation model can't output a physically impossible forecast even when a station's inputs are noisy</li>
+        <li><strong>Validation before trust</strong>: every model is back-tested on held-out historical windows before it's allowed to surface a live recommendation, and every live prediction is logged against its eventual outcome — this outcome log is what Section 4's accuracy claims are built on, and what keeps the model honest over time</li>
+      </ul>
+
+      <h3>2.3 Handling data gaps at Tier C stations</h3>
+      <p>Three layers, in order of cost:</p>
+      <ol>
+        <li><strong>Free — inference from neighbours.</strong> A Tier C station's buffer behaviour (how fast cars queue before it, how fast they clear after) already carries a signal about its own cycle time, without touching the station itself.</li>
+        <li><strong>Low-cost — a camera, not a sensor.</strong> Where there's a usable sightline, the same optical-flow pipeline from Round 1 upgrades a Tier C station to Tier B without any PLC integration or production downtime — install happens on a live line, no maintenance window required.</li>
+        <li><strong>Scheduled — targeted retrofit.</strong> For stations where neither of the above is viable, we produce a ranked "instrumentation shortlist" — the stations whose uncertainty most limits the twin's overall accuracy — so a plant's limited maintenance-window budget for physical retrofits is spent where it moves the needle most, not spread evenly.</li>
+      </ol>
+
+      <h3>2.4 Integration approach — around the line, not into it</h3>
+      <p>The twin is strictly read-only with respect to production systems. It subscribes to existing MES/SCADA event streams and OT data feeds already flowing for other purposes (quality systems, historian databases), and adds cameras as an independent, non-networked sensing layer with no connection back into PLC logic. <strong>No control-system change, no PLC reprogramming, and no requirement for a maintenance window to deploy the core twin</strong> — maintenance windows are reserved solely for the optional physical retrofit step in 2.3.</p>
+
+      <h3>2.5 From detection to action</h3>
+      <p>Every flagged deviation resolves to one explainable statement, not a bare score: <em>"Station 14 is degrading → Station 17 may be affected in 4 minutes → 9 vehicles are potentially exposed."</em> A ranked recommendation follows — inspect, reassign, hold buffer — and a human always approves it. The twin never adjusts line speed, halts a station, or clears a vehicle on its own.</p>
+    </section>
+
+    <section id="s3">
+      <div class="sec-eyebrow"><span class="num">3</span>Target Users</div>
+      <h2 class="sec-title">Three views, one underlying model</h2>
+      <p>The same twin serves three audiences with fundamentally different decision cadences — so the product is one shared data model surfaced through three distinct views, not three separate tools.</p>
+
+      <div class="persona">
+        <div class="head"><span class="role">Floor Supervisor</span><span class="cadence">Real time · seconds to minutes</span></div>
+        <p>Needs the live line map, right now: which station is straining, what's predicted downstream, one ranked action to approve. Success is measured in minutes saved before a bottleneck becomes a missed shift target.</p>
+      </div>
+      <div class="persona">
+        <div class="head"><span class="role">Plant Manager</span><span class="cadence">Planning · daily / weekly</span></div>
+        <p>Needs trend views across the week: which stations recur as risk sources, how prediction accuracy is tracking, where labour or maintenance should be pre-positioned for the coming shifts. Success is fewer surprises at the weekly review.</p>
+      </div>
+      <div class="persona">
+        <div class="head"><span class="role">Leadership Sponsor</span><span class="cadence">Investment · quarterly</span></div>
+        <p>Needs the business case: downtime hours avoided, defect batches caught early, cost of the instrumentation shortlist versus cost of the status quo, and a rollout path to the next line or site. Success is a fundable, de-risked expansion decision.</p>
+      </div>
+    </section>
+
+    <section id="s4">
+      <div class="sec-eyebrow"><span class="num">4</span>Business Case &amp; Impact</div>
+      <h2 class="sec-title">Where the value actually comes from</h2>
+      <div class="stat-row">
+        <div class="stat"><div class="num">20–40</div><div class="lbl">vehicles typically built between a defect-causing event and its discovery at final test — the exposure window this twin shrinks</div></div>
+        <div class="stat"><div class="num">2–3</div><div class="lbl">cycle times of early warning the propagation model targets, before a bottleneck trips the shift's line rate</div></div>
+        <div class="stat"><div class="num">60–70%</div><div class="lbl">of a typical mixed-model line's stations that carry little or no direct telemetry today — the segment this twin is built to cover</div></div>
+      </div>
+      <h3>Where savings accrue</h3>
+      <ul>
+        <li><strong>Reduced defect-exposure batches</strong> — catching a deviation within a handful of vehicles instead of dozens directly cuts rework and warranty cost per incident</li>
+        <li><strong>Reduced unplanned downtime</strong> — earlier bottleneck warning converts emergency line stops into planned, lower-cost interventions</li>
+        <li><strong>Better-targeted capital spend</strong> — the ranked instrumentation shortlist (2.3) means retrofit budget goes to the highest-uncertainty stations first, not spread thin</li>
+        <li><strong>No integration capex or downtime</strong> — read-only deployment means value starts accruing before any maintenance window is spent</li>
+      </ul>
+      <h3>Path to proof</h3>
+      <p>Because every prediction is logged against its eventual outcome (2.2), the business case is not a one-time estimate — it compounds into an audited accuracy and savings record that leadership can point to when approving expansion to the next line.</p>
+    </section>
+
+    <section id="s5">
+      <div class="sec-eyebrow"><span class="num">5</span>Phased Roadmap</div>
+      <h2 class="sec-title">One line first, proven before it spreads</h2>
+      <div class="phase-row">
+        <div class="phase"><div class="ph-eyebrow">Phase 1 · Weeks 1–8</div><div class="ph-name">Prove the mechanism</div><p>Working prototype on simulated 30–50 station line with synthetic Tier A/B/C coverage. Validate the SEE→PREDICT pipeline and confidence-banded output against known injected-fault scenarios.</p></div>
+        <div class="phase"><div class="ph-eyebrow">Phase 2 · Weeks 9–20</div><div class="ph-name">Pilot on one real line</div><p>Read-only integration with one plant's live MES/OT feeds plus targeted camera install at select Tier C stations. Outcome-logging begins; floor supervisor view goes live.</p></div>
+        <div class="phase"><div class="ph-eyebrow">Phase 3 · Months 6–12</div><div class="ph-name">Prove the business case</div><p>Accumulate enough outcome-logged predictions to report audited accuracy and savings. Plant manager and leadership views mature; first physical retrofit shortlist executed at a scheduled maintenance window.</p></div>
+        <div class="phase"><div class="ph-eyebrow">Phase 4 · Year 2</div><div class="ph-name">Generalise across sites</div><p>Re-platform the station-tier model for a second line/site with different layout and sensor maturity, using Phase 3's audited case to justify the expansion without re-litigating the core mechanism.</p></div>
+      </div>
+    </section>
+
+    <section id="s6">
+      <div class="sec-eyebrow"><span class="num">6</span>Risks &amp; Mitigations</div>
+      <h2 class="sec-title">Named directly, mitigated by design</h2>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Risk</th><th>Severity</th><th>Mitigation</th></tr></thead>
+        <tbody>
+          <tr><td>False alarms erode floor-level trust faster than they build it</td><td><span class="risk-sev sev-crit"></span>Critical</td><td>Confidence-banded predictions (2.1); back-testing before any model goes live (2.2); outcome log surfaced back to the floor supervisor so accuracy is visible, not asserted</td></tr>
+          <tr><td>Multi-causal root causes get mis-attributed to the wrong factor</td><td><span class="risk-sev sev-high"></span>High</td><td>Recommendations name a ranked hypothesis with contributing signals, not a single asserted cause — framed for human judgement, not automated diagnosis</td></tr>
+          <tr><td>Model tuned to one line's data doesn't transfer to another site</td><td><span class="risk-sev sev-high"></span>High</td><td>Station-tier modelling (2.1) is layout-agnostic by construction; Phase 4 is scoped explicitly to test and correct this before wider rollout</td></tr>
+          <tr><td>Camera or sensor data quality degrades (lighting, occlusion, wear) without anyone noticing</td><td><span class="risk-sev sev-med"></span>Medium</td><td>Continuous signal-quality monitoring per station; a station whose input quality drops is flagged as low-confidence automatically, never silently trusted</td></tr>
+          <tr><td>Scope creep toward a full physics-accurate twin</td><td><span class="risk-sev sev-med"></span>Medium</td><td>Section 2.1's explicit modelled-vs-inferred boundary is a standing constraint revisited at every phase gate, matching the Round 1 discipline of modelling behaviour, not physical detail</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="s7" style="border-bottom:none;">
+      <div class="sec-eyebrow"><span class="num">7</span>Working Assumptions</div>
+      <h2 class="sec-title">Stated explicitly, adapted freely</h2>
+      <div class="assume">
+        <div class="lbl">Line configuration</div>
+        <p>A mixed-model assembly line of 30–50 stations spanning body construction, paint and final assembly — consistent with the brief's reference parameters, and representative of the segment where this twin's value is highest.</p>
+      </div>
+      <div class="assume">
+        <div class="lbl">Sensor coverage</div>
+        <p>A majority of stations are well-instrumented (Tier A); a meaningful minority are manual-checklist only (Tier C) at the outset. Camera-augmentable (Tier B) coverage is treated as the primary lever for narrowing that gap without a maintenance window.</p>
+      </div>
+      <div class="assume">
+        <div class="lbl">Maintenance access</div>
+        <p>Physical instrumentation changes are only possible during a small number of scheduled maintenance windows per year — the entire integration approach (2.4) is designed to deliver value without depending on this constraint.</p>
+      </div>
+      <div class="assume">
+        <div class="lbl">Generalisation intent</div>
+        <p>These parameters are illustrative, not a fixed dataset. The station-tier model and confidence-banding approach are designed to hold across different layouts, equipment vintages and sensor maturities — this is treated as a design requirement, not an assumption to be revisited later.</p>
+      </div>
+    </section>
+
+    <footer>DigitalTwin.ai — Round 2 Business Proposal v1.0 — Team CUBIX, Accenture Innovation Challenge 2026.</footer>
+  </main>
+</div>

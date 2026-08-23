@@ -1,0 +1,640 @@
+<title>DigitalTwin.ai — PRD v2.0</title>
+<style>
+:root{
+  --bg:#EEF0F2; --panel:#FFFFFF; --ink:#14202B; --body:#3A4552; --muted:#6B7684;
+  --line:#CBD2D9; --grid:#DCE1E6;
+  --accent:#C4622D; --accent-ink:#7A3813; --accent-soft:#F5E2D3;
+  --teal:#3C6E71; --teal-soft:#DCEAEA;
+  --panel-alt:#F3F5F6;
+  --red:#B3402F; --red-soft:#F6DCD6;
+  --green:#1E6B3A; --green-soft:#DCEFE1;
+  --purple:#6A3FA0; --purple-soft:#EFE7F7;
+  --code-bg:#101820;
+  --shadow: 0 1px 2px rgba(20,32,43,0.06), 0 8px 24px rgba(20,32,43,0.05);
+}
+:root[data-theme="dark"]{
+  --bg:#0E1418; --panel:#151D24; --ink:#E7ECEF; --body:#B8C2CB; --muted:#7E8B96;
+  --line:#28333C; --grid:#1E2830;
+  --accent:#E8823E; --accent-ink:#FFD9B8; --accent-soft:#2C1D12;
+  --teal:#5FA8AC; --teal-soft:#122A2A;
+  --panel-alt:#111A20;
+  --red:#E0685A; --red-soft:#2B1512;
+  --green:#7FDCA0; --green-soft:#0F2A1A;
+  --purple:#B79CE0; --purple-soft:#241C33;
+  --code-bg:#0A0F13;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1418; --panel:#151D24; --ink:#E7ECEF; --body:#B8C2CB; --muted:#7E8B96;
+    --line:#28333C; --grid:#1E2830;
+    --accent:#E8823E; --accent-ink:#FFD9B8; --accent-soft:#2C1D12;
+    --teal:#5FA8AC; --teal-soft:#122A2A;
+    --panel-alt:#111A20;
+    --red:#E0685A; --red-soft:#2B1512;
+    --green:#7FDCA0; --green-soft:#0F2A1A;
+    --purple:#B79CE0; --purple-soft:#241C33;
+    --code-bg:#0A0F13;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:
+    repeating-linear-gradient(0deg, var(--grid) 0px, var(--grid) 1px, transparent 1px, transparent 88px),
+    repeating-linear-gradient(90deg, var(--grid) 0px, var(--grid) 1px, transparent 1px, transparent 88px),
+    var(--bg);
+  color:var(--body);
+  font-family: -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size:15px; line-height:1.65;
+}
+::selection{ background:var(--accent-soft); color:var(--accent-ink); }
+.wrap{ display:flex; max-width:1200px; margin:0 auto; }
+.toc{ width:250px; flex-shrink:0; position:sticky; top:0; align-self:flex-start; height:100vh; overflow-y:auto; padding:32px 16px 32px 26px; border-right:1px solid var(--line); }
+.toc-brand{ font-family:"Bahnschrift","Helvetica Neue Condensed","Arial Narrow",sans-serif; font-weight:700; letter-spacing:0.02em; font-size:15px; color:var(--ink); text-transform:uppercase; margin-bottom:2px; }
+.toc-brand .dot{ color:var(--accent); }
+.toc-sub{ font-size:11px; color:var(--muted); margin-bottom:22px; letter-spacing:0.03em;}
+.toc a{ display:block; font-size:12px; color:var(--muted); text-decoration:none; padding:5px 0 5px 12px; border-left:2px solid transparent; margin-bottom:1px; transition:color .15s, border-color .15s; }
+.toc a .n{ font-variant-numeric:tabular-nums; color:var(--muted); margin-right:6px; opacity:.7;}
+.toc a:hover{ color:var(--ink); }
+.toc a.active{ color:var(--accent); border-left-color:var(--accent); font-weight:600; }
+main{ flex:1; min-width:0; padding:0 0 120px; }
+.cover{ padding:64px 56px 44px; border-bottom:1px solid var(--line); }
+.cover-eyebrow{ font-size:11.5px; letter-spacing:0.16em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:16px; }
+.cover-title{ font-family:"Bahnschrift","Helvetica Neue Condensed","Arial Narrow",sans-serif; font-weight:700; font-size:44px; line-height:1.05; color:var(--ink); margin:0 0 6px; letter-spacing:-0.01em; text-wrap:balance; }
+.cover-title .accent{ color:var(--accent); }
+.cover-tag{ font-size:15.5px; color:var(--body); max-width:660px; margin:14px 0 28px; font-style:italic; }
+.cover-meta{ display:grid; grid-template-columns:repeat(4,1fr); gap:0; border-top:1px solid var(--line); }
+.cover-meta div{ padding:15px 18px 0 0; border-right:1px solid var(--line); }
+.cover-meta div:last-child{ border-right:none; }
+.cover-meta .k{ font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:4px;}
+.cover-meta .v{ font-size:12.5px; color:var(--ink); font-weight:600; }
+section{ padding:40px 56px; border-bottom:1px solid var(--line); scroll-margin-top:20px; }
+.sec-eyebrow{ font-family:"Bahnschrift","Helvetica Neue Condensed","Arial Narrow",sans-serif; font-size:12px; letter-spacing:0.14em; color:var(--accent); font-weight:700; text-transform:uppercase; margin-bottom:6px; display:flex; align-items:center; gap:10px; }
+.sec-eyebrow .num{ display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:4px; background:var(--accent-soft); color:var(--accent-ink); font-size:11px; font-weight:800; }
+h2.sec-title{ font-family:"Bahnschrift","Helvetica Neue Condensed","Arial Narrow",sans-serif; font-size:26px; color:var(--ink); margin:0 0 18px; font-weight:700; text-wrap:balance; }
+h3{ font-size:13.5px; color:var(--ink); text-transform:uppercase; letter-spacing:0.04em; margin:26px 0 10px; font-weight:700; }
+h3:first-of-type{ margin-top:4px; }
+p{ margin:0 0 12px; max-width:78ch; }
+ul,ol{ margin:0 0 14px; padding-left:20px; max-width:78ch; }
+li{ margin-bottom:6px; }
+strong{ color:var(--ink); font-weight:700; }
+.pull{ background:var(--teal-soft); border-left:3px solid var(--teal); padding:13px 17px; border-radius:0 6px 6px 0; margin:16px 0 20px; max-width:74ch; }
+.pull p{ margin:0; font-size:13.5px; color:var(--ink); }
+.assume{ background:var(--panel-alt); border:1px solid var(--line); border-radius:8px; padding:14px 18px; margin:10px 0 20px; }
+.assume .lbl{ font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); font-weight:700; margin-bottom:6px;}
+.assume p{ margin:0; font-size:13px; }
+.stat-row{ display:flex; gap:12px; flex-wrap:wrap; margin:16px 0 20px; }
+.stat{ flex:1 1 140px; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:14px 16px; box-shadow:var(--shadow); }
+.stat .num{ font-family:"Bahnschrift","Helvetica Neue Condensed",sans-serif; font-size:23px; font-weight:700; color:var(--accent); font-variant-numeric:tabular-nums; }
+.stat .lbl{ font-size:10.5px; color:var(--muted); margin-top:2px; }
+table{ width:100%; border-collapse:collapse; margin:6px 0 20px; font-size:12.5px; }
+thead th{ background:var(--panel-alt); color:var(--ink); text-align:left; font-weight:700; padding:9px 11px; border-bottom:2px solid var(--line); font-size:11px; text-transform:uppercase; letter-spacing:.03em; }
+tbody td{ padding:9px 11px; border-bottom:1px solid var(--line); vertical-align:top; color:var(--body);}
+tbody tr:nth-child(even){ background:var(--panel-alt); }
+tbody td:first-child{ color:var(--ink); font-weight:600; }
+.tbl-wrap{ overflow-x:auto; }
+.moscow{ display:inline-block; padding:2px 9px; border-radius:20px; font-size:10.5px; font-weight:700; letter-spacing:.03em; text-transform:uppercase; }
+.must{ background:var(--green-soft); color:var(--green); }
+.should{ background:var(--accent-soft); color:var(--accent-ink); }
+.could{ background:#DDE6F5; color:#2C4E8A; }
+.wont{ background:#E6E6E6; color:#5A5A5A; }
+:root[data-theme="dark"] .could, :root:not([data-theme="light"]) .could{ background:#152238; color:#9FBBEF;}
+:root[data-theme="dark"] .wont, :root:not([data-theme="light"]) .wont{ background:#2A2A2A; color:#AAAAAA;}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .could{ background:#152238; color:#9FBBEF;}
+  :root:not([data-theme="light"]) .wont{ background:#2A2A2A; color:#AAAAAA;}
+}
+.tier-tag{ display:inline-block; padding:2px 9px; border-radius:20px; font-size:10.5px; font-weight:700; }
+.tier-a{ background:var(--teal-soft); color:var(--teal); }
+.tier-b{ background:var(--purple-soft); color:var(--purple); }
+.tier-c{ background:var(--accent-soft); color:var(--accent-ink); }
+.diagram{ background:var(--code-bg); color:#CFE8E8; border-radius:8px; padding:20px 22px; font-family:"SF Mono","Menlo",monospace; font-size:11.5px; line-height:1.85; overflow-x:auto; margin:12px 0 20px; white-space:pre; }
+.diagram .hl{ color:#E8A26A; } .diagram .arrow{ color:#5FA8AC; } .diagram .lbl{ color:#8090A0; }
+.risk-sev{ display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:6px; }
+.sev-crit{ background:var(--red); } .sev-high{ background:var(--accent); } .sev-med{ background:var(--teal); }
+.persona{ border:1px solid var(--line); border-radius:8px; padding:14px 16px; margin-bottom:10px; background:var(--panel); box-shadow:var(--shadow); }
+.persona .head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:5px;}
+.persona .role{ font-family:"Bahnschrift","Helvetica Neue Condensed",sans-serif; font-weight:700; color:var(--accent); font-size:12px; letter-spacing:.03em; text-transform:uppercase;}
+.persona .cadence{ font-size:10.5px; color:var(--muted); font-weight:600; }
+.persona p{ margin:0; font-size:12.5px; }
+.phase-row{ display:flex; gap:10px; margin:8px 0 20px; flex-wrap:wrap; }
+.phase{ flex:1 1 200px; border:1px solid var(--line); border-radius:8px; padding:13px 15px; background:var(--panel); box-shadow:var(--shadow); }
+.phase .ph-eyebrow{ font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); font-weight:700; }
+.phase .ph-name{ font-family:"Bahnschrift","Helvetica Neue Condensed",sans-serif; font-size:14px; font-weight:700; color:var(--ink); margin:2px 0 5px;}
+.phase p{ font-size:11px; margin:0; }
+footer{ padding:32px 56px; color:var(--muted); font-size:11px; }
+@media (max-width:880px){
+  .toc{ display:none; } .cover, section{ padding:28px 18px; } .cover-title{ font-size:32px; } .cover-meta{ grid-template-columns:repeat(2,1fr); }
+}
+</style>
+
+<div class="wrap">
+  <nav class="toc">
+    <div class="toc-brand">DigitalTwin<span class="dot">.ai</span></div>
+    <div class="toc-sub">PRD v2.0 — Round 2</div>
+    <a href="#s1"><span class="n">01</span>Executive Summary</a>
+    <a href="#s2"><span class="n">02</span>Problem Analysis</a>
+    <a href="#s3"><span class="n">03</span>Target Audience</a>
+    <a href="#s4"><span class="n">04</span>Product Objectives</a>
+    <a href="#s5"><span class="n">05</span>Features &amp; Requirements</a>
+    <a href="#s6"><span class="n">06</span>User Flow &amp; Journey</a>
+    <a href="#s7"><span class="n">07</span>UI/UX Requirements</a>
+    <a href="#s8"><span class="n">08</span>Technical Requirements</a>
+    <a href="#s9"><span class="n">09</span>AI / Automation</a>
+    <a href="#s10"><span class="n">10</span>Non-Functional Reqs</a>
+    <a href="#s11"><span class="n">11</span>Roadmap &amp; Milestones</a>
+    <a href="#s12"><span class="n">12</span>Risk Analysis</a>
+    <a href="#s13"><span class="n">13</span>Analytics &amp; Tracking</a>
+    <a href="#s14"><span class="n">14</span>Testing Strategy</a>
+    <a href="#s15"><span class="n">15</span>Deployment Strategy</a>
+    <a href="#s16"><span class="n">16</span>Future Enhancements</a>
+    <a href="#s17"><span class="n">17</span>Final Recommendations</a>
+  </nav>
+
+  <main>
+    <div class="cover">
+      <div class="cover-eyebrow">Product Requirements Document · v2.0</div>
+      <h1 class="cover-title">Digital<span class="accent">Twin</span>.ai</h1>
+      <p class="cover-tag">A live, tier-aware digital twin of a mixed-model vehicle assembly line — fusing PLC telemetry, vision-inferred signals, and checklist data across uneven sensor coverage — that predicts bottlenecks and defect exposure before either happens, and tells you exactly how confident it is while doing so.</p>
+      <div class="cover-meta">
+        <div><div class="k">Team</div><div class="v">CUBIX — IIT Madras</div></div>
+        <div><div class="k">Platform</div><div class="v">Enterprise SaaS + Edge AI</div></div>
+        <div><div class="k">Monetization</div><div class="v">Per-line annual license</div></div>
+        <div><div class="k">Stage</div><div class="v">Round 2 — Prototype-Ready</div></div>
+      </div>
+    </div>
+
+    <section id="s1">
+      <div class="sec-eyebrow"><span class="num">01</span>Executive Summary</div>
+      <h2 class="sec-title">Executive Summary</h2>
+
+      <h3>Product Overview</h3>
+      <p>DigitalTwin.ai is a live software model of a vehicle assembly line for plant teams who can see a station's output today but not its strain. It fuses three tiers of signal — direct PLC/MES telemetry, camera-based vision inference, and manual-checklist data — into one station-health model, then runs a forward propagation simulation so that a forming bottleneck or an emerging defect is forecast minutes before it becomes a missed shift target or a batch of exposed vehicles.</p>
+
+      <h3>Vision Statement</h3>
+      <p>"No station on the line is invisible, and no defect travels twenty vehicles before someone notices — regardless of how that station was instrumented a decade ago."</p>
+
+      <h3>Mission Statement</h3>
+      <p>DigitalTwin.ai's mission is to make predictive visibility available to the 60&#8211;70% of stations on a typical mixed-model line that were never wired for it, without requiring a capital retrofit project or a pause in production to get there.</p>
+
+      <h3>Core Value Proposition</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Stakeholder</th><th>Value Delivered</th><th>Quantified Outcome</th></tr></thead>
+        <tbody>
+          <tr><td>Floor Supervisor</td><td>Sees strain forming at a station before takt time is missed, with a confidence rating attached to every read</td><td>Bottleneck flagged 2&#8211;3 cycle times before it trips the line rate</td></tr>
+          <tr><td>Quality Engineer</td><td>A ranked, confidence-banded list of exposed vehicles instead of a blanket recall check</td><td>Re-inspection scope narrowed from dozens of vehicles to single digits</td></tr>
+          <tr><td>Plant Manager</td><td>One live map of every station's health, sensored or not, plus a weekly trend view</td><td>Full-line visibility with zero PLC retrofit capex at launch</td></tr>
+          <tr><td>Leadership Sponsor</td><td>An audited, outcome-logged accuracy and savings record to justify expansion</td><td>Evidence-backed case for rollout to the next line or site</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="assume">
+        <div class="lbl">Assumption — fields not specified in the brief</div>
+        <p><strong>Target users:</strong> automotive OEM plant operations teams (floor supervisors, quality engineers, plant managers, operations leadership). <strong>Business goal:</strong> operational efficiency and quality-cost reduction for the paying plant, and multi-site license growth for DigitalTwin.ai as the vendor. <strong>Platform:</strong> enterprise web SaaS console with an edge-deployed sensing/inference layer. <strong>Monetization:</strong> annual per-line subscription license, tiered by station count, plus optional professional services for the instrumentation-shortlist retrofit work. <strong>Competitors/references:</strong> Siemens/Dassault full digital-twin platforms, SAP PM/Maximo (CMMS), end-of-line vision inspection vendors, OEM telematics.</p>
+      </div>
+    </section>
+
+    <section id="s2">
+      <div class="sec-eyebrow"><span class="num">02</span>Problem Analysis</div>
+      <h2 class="sec-title">Problem Analysis</h2>
+
+      <h3>Existing Market Gaps</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Approach</th><th>What It Misses</th></tr></thead>
+        <tbody>
+          <tr><td>MES / line-balancing dashboards</td><td>Report throughput and downtime after the fact; no forward propagation model, no per-vehicle defect-exposure forecast</td></tr>
+          <tr><td>Full digital-twin platforms (Siemens, Dassault)</td><td>Model geometry and PLC signals in exhaustive detail — assume a fully instrumented line, and take 12&#8211;18 months to stand up</td></tr>
+          <tr><td>End-of-line vision inspection</td><td>Catches a defect after assembly is complete, when rework is most expensive — not upstream, where it started</td></tr>
+          <tr><td>CMMS (SAP PM, Maximo)</td><td>Workflow and scheduling only; zero condition-monitoring intelligence about what is actually degrading</td></tr>
+          <tr><td>OEM telematics / andon systems</td><td>Depend on an operator noticing and reporting a subtle motion or timing change in real time, under production pressure</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>User Pain Points</h3>
+      <ul>
+        <li><strong>Delayed bottleneck discovery</strong> — a station running 8&#8211;10% slow shows up as a full buffer, then a starved downstream station, then a missed shift target, by which point the cause is minutes upstream and untraceable in the moment</li>
+        <li><strong>Delayed defect discovery</strong> — a subtle process deviation surfaces only at final inspection, by which time 20&#8211;40 vehicles may carry the same undetected issue</li>
+        <li><strong>Uneven visibility</strong> — 60&#8211;70% of stations on a real mixed-model line carry little or no direct telemetry, so most of the line is a blind spot today</li>
+        <li><strong>No trust mechanism</strong> — existing "AI monitoring" tools that cry wolf erode floor-level trust faster than they build it, and most offer no way to see their own track record</li>
+      </ul>
+
+      <h3>Why Current Solutions Fail</h3>
+      <div class="stat-row">
+        <div class="stat"><div class="num">20&#8211;40</div><div class="lbl">vehicles typically built between a defect-causing event and its discovery at final test</div></div>
+        <div class="stat"><div class="num">60&#8211;70%</div><div class="lbl">of stations on a typical mixed-model line carry little or no direct telemetry</div></div>
+        <div class="stat"><div class="num">12&#8211;18mo</div><div class="lbl">typical deployment time for a full physics-accurate digital twin platform</div></div>
+      </div>
+      <div class="pull"><p>Every existing option assumes either a fully instrumented line (enterprise twins) or accepts total blindness at uninstrumented stations (MES/CMMS). Nobody fuses partial instrumentation with vision to cover the gap, then forecasts forward from whatever signal is actually available.</p></div>
+    </section>
+
+    <section id="s3">
+      <div class="sec-eyebrow"><span class="num">03</span>Target Audience</div>
+      <h2 class="sec-title">Target Audience</h2>
+
+      <h3>Primary Users</h3>
+      <ul>
+        <li><strong>Floor Supervisors</strong> — own real-time response to a forming bottleneck; the live line map is their shift-long working view</li>
+        <li><strong>Quality Engineers</strong> — investigate flagged stations and decide which vehicle range needs re-inspection</li>
+        <li><strong>Plant Managers</strong> — consume weekly trend views and pre-position labour and maintenance ahead of predicted risk</li>
+      </ul>
+
+      <h3>Secondary Users</h3>
+      <ul>
+        <li><strong>Leadership Sponsors</strong> — review quarterly the audited accuracy/savings record and approve rollout to additional lines or sites</li>
+        <li><strong>Industrial/Manufacturing Engineers</strong> — tune station models, buffer capacities, and the instrumentation shortlist as the line's physical configuration changes</li>
+        <li><strong>Maintenance Leads</strong> — receive early-warning correlation between recurring vision-flagged anomalies and upcoming equipment wear</li>
+      </ul>
+
+      <h3>User Personas</h3>
+      <div class="persona">
+        <div class="head"><span class="role">Floor Supervisor</span><span class="cadence">Real time · seconds to minutes</span></div>
+        <p>Deepak Rao runs a 40-station trim-and-final line across two shifts. Fewer than half the stations report into MES. Today he learns about a forming bottleneck when the buffer visibly fills on the floor. Wants one screen showing every station's health the same way, sensored or not, and told which one to walk to first.</p>
+      </div>
+      <div class="persona">
+        <div class="head"><span class="role">Quality Engineer</span><span class="cadence">Investigative · hourly</span></div>
+        <p>Priya Sharma cross-references a flagged VIN range against the station-level explanation before deciding release, targeted re-inspection, or hold. Needs the confidence band visible at all times — a vision-inferred flag and a PLC-confirmed flag must never look equally certain.</p>
+      </div>
+      <div class="persona">
+        <div class="head"><span class="role">Plant Manager</span><span class="cadence">Planning · daily/weekly</span></div>
+        <p>Arjun Joshi is P&amp;L-responsible for the line's OEE. Needs the weekly rollup: recurring at-risk stations, prediction accuracy trend, and where to pre-position labour for the coming shifts — not raw anomaly scores.</p>
+      </div>
+      <div class="persona">
+        <div class="head"><span class="role">Leadership Sponsor</span><span class="cadence">Investment · quarterly</span></div>
+        <p>Reviews the audited outcome log — downtime hours avoided, defect batches caught early, instrumentation spend vs. savings — to approve expansion to the next line or plant.</p>
+      </div>
+
+      <h3>Demographics and Behavior</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Attribute</th><th>Profile</th></tr></thead>
+        <tbody>
+          <tr><td>Plant size</td><td>Mid-to-large automotive OEM or Tier-1 assembly plant, 30&#8211;50 stations per line, multiple lines per plant</td></tr>
+          <tr><td>Existing tech</td><td>MES/SCADA already in place for instrumented stations; CMMS for work orders; little to no computer-vision tooling on the floor today</td></tr>
+          <tr><td>Buying cycle</td><td>Enterprise procurement, 6&#8211;12 months, typically gated by a pilot line before multi-line rollout</td></tr>
+          <tr><td>Risk posture</td><td>High sensitivity to false alarms and to any solution that touches live PLC/control logic</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="s4">
+      <div class="sec-eyebrow"><span class="num">04</span>Product Objectives</div>
+      <h2 class="sec-title">Product Objectives</h2>
+
+      <h3>Short-Term Goals (Prototype &amp; Pilot)</h3>
+      <ul>
+        <li>Demonstrate the SEE&#8594;MODEL&#8594;PREDICT&#8594;ACT pipeline on a simulated 30&#8211;50 station line with realistic Tier A/B/C sensor coverage</li>
+        <li>Validate that the same degradation severity is detected with high confidence at instrumented stations and honestly flagged as low-confidence at manual-checklist stations</li>
+        <li>Deploy read-only on one real pilot line without any PLC/control-system modification</li>
+      </ul>
+
+      <h3>Long-Term Goals</h3>
+      <ul>
+        <li>Reach outcome-logged prediction accuracy sufficient to support an audited business case for multi-line rollout</li>
+        <li>Generalise the station-tier model across sites with different layouts, equipment vintages, and sensor maturities</li>
+        <li>Grow from single-line pilots to a per-plant, then multi-plant, licensed deployment footprint</li>
+      </ul>
+
+      <h3>Success Metrics (KPIs)</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>KPI</th><th>Prototype Target</th><th>Pilot Target</th><th>Scale Target</th></tr></thead>
+        <tbody>
+          <tr><td>Bottleneck lead time</td><td>Demonstrated &#8805;2 cycles early in simulation</td><td>&#8805;2&#8211;3 cycles early on real line</td><td>Consistent across lines</td></tr>
+          <tr><td>Defect-exposure precision</td><td>Directionally shown in scenario</td><td>&#8805;70%</td><td>&#8805;85%</td></tr>
+          <tr><td>Vision cycle-time accuracy vs. PLC ground truth</td><td>Within &#177;10%</td><td>Within &#177;5%</td><td>Within &#177;5% across site types</td></tr>
+          <tr><td>Time from anomaly to first recommendation</td><td>&lt;60s (simulated)</td><td>&lt;30s (live)</td><td>&lt;30s at scale</td></tr>
+          <tr><td>False-positive rate</td><td>Not yet measurable</td><td>&lt;15%</td><td>&lt;10%</td></tr>
+          <tr><td>Licensed lines</td><td>0 (internal demo)</td><td>1</td><td>10+ within 18 months</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="s5">
+      <div class="sec-eyebrow"><span class="num">05</span>Features and Functional Requirements</div>
+      <h2 class="sec-title">Features and Functional Requirements</h2>
+      <p><span class="moscow must">MUST</span> MVP-blocking &nbsp; <span class="moscow should">SHOULD</span> High value &nbsp; <span class="moscow could">COULD</span> Nice to have &nbsp; <span class="moscow wont">WON'T v1</span> Deferred</p>
+
+      <h3>F-01 · Station Tier Registry</h3>
+      <p><span class="moscow must">MUST</span></p>
+      <p><strong>Description:</strong> Every station is registered with its position in the line graph, upstream/downstream buffer capacities, takt target, and a sensing tier &mdash; <span class="tier-tag tier-a">Tier A · Instrumented</span> <span class="tier-tag tier-b">Tier B · Vision</span> <span class="tier-tag tier-c">Tier C · Manual</span>. This tag drives which pipeline and confidence model applies.</p>
+      <p><strong>User story:</strong> As an industrial engineer, I want to register each station's sensing tier so the twin knows how much to trust its own read at that station.</p>
+      <p><strong>Acceptance criteria:</strong> Station created with tier, buffer capacity, and takt target; tier is editable as instrumentation changes; tier is visible on every downstream view of that station.</p>
+      <p><strong>Dependencies:</strong> None.</p>
+
+      <h3>F-02 · Telemetry &amp; Vision Ingestion</h3>
+      <p><span class="moscow must">MUST</span></p>
+      <p><strong>Description:</strong> Tier A stations stream PLC/MES events (cycle time, fault codes, process parameters) via a read-only event-bus subscription. Tier B stations run the optical-flow pipeline (reused from the Round 1 prototype) on a fixed camera feed to reconstruct cycle time and motion-anomaly signals. Tier C stations contribute checklist pass/fail data at inspection cadence.</p>
+      <p><strong>User story:</strong> As a plant IT lead, I want the twin to ingest existing data streams without any write access to control systems, so there is zero operational risk to live production.</p>
+      <p><strong>Acceptance criteria:</strong> Ingestion is strictly read-only; a dropped camera or feed marks the station "unmonitored," never silently frozen on stale data.</p>
+      <p><strong>Dependencies:</strong> F-01.</p>
+
+      <h3>F-03 · Per-Station Anomaly Detection</h3>
+      <p><span class="moscow must">MUST</span></p>
+      <p><strong>Description:</strong> An Isolation Forest fitted per station on its own historical "healthy" window scores incoming features unsupervised &mdash; no labelled fault data required. Each station is judged against its own baseline, never a factory-wide norm.</p>
+      <p><strong>User story:</strong> As a quality engineer, I want each station's anomaly threshold to reflect that station's own normal operating range, so a naturally slower station doesn't generate constant false alarms.</p>
+      <p><strong>Acceptance criteria:</strong> Model retrains on a rolling healthy window; anomaly score is bounded 0&#8211;1; flags require sustained deviation over a rolling tail window, not a single noisy sample.</p>
+      <p><strong>Dependencies:</strong> F-02.</p>
+
+      <h3>F-04 · Confidence-Banded Output</h3>
+      <p><span class="moscow must">MUST</span></p>
+      <p><strong>Description:</strong> Every anomaly score and prediction is paired with a confidence value derived from the source station's tier (and, for Tier B, live signal quality &mdash; lighting, occlusion, angle). Low-confidence output is visually and textually distinct everywhere it appears.</p>
+      <p><strong>User story:</strong> As a floor supervisor, I want to immediately tell whether a flag is PLC-certain or vision/manual-inferred, so I calibrate my response accordingly.</p>
+      <p><strong>Acceptance criteria:</strong> No screen displays a score without its confidence label; Tier C/low-confidence Tier B flags never render with the same visual weight as Tier A.</p>
+      <p><strong>Dependencies:</strong> F-01, F-03.</p>
+
+      <h3>F-05 · Downstream Propagation Forecast</h3>
+      <p><span class="moscow must">MUST</span></p>
+      <p><strong>Description:</strong> On a sustained anomaly, a discrete-event simulation propagates the disruption through the line graph &mdash; buffer fill/drain dynamics, takt mismatches &mdash; forecasting which stations will bottleneck, when, and which in-progress vehicles (by position/VIN) are exposed.</p>
+      <p><strong>User story:</strong> As a floor supervisor, I want to know not just that a station is degrading, but which station and how many vehicles will be affected, and when.</p>
+      <p><strong>Acceptance criteria:</strong> Forecast returns at least the next downstream station, a time-to-impact estimate, and an exposed vehicle range when the degradation is defect-like.</p>
+      <p><strong>Dependencies:</strong> F-01, F-03.</p>
+
+      <h3>F-06 · Explainable Recommendation Queue</h3>
+      <p><span class="moscow must">MUST</span></p>
+      <p><strong>Description:</strong> Every flagged event resolves to one ranked, plain-language recommendation (inspect, reassign labour, hold buffer, targeted re-inspection) rather than a bare anomaly score, always requiring human approval.</p>
+      <p><strong>User story:</strong> As a floor supervisor, I want one clear next action, not a wall of alerts, so I'm not left interpreting a raw number under production pressure.</p>
+      <p><strong>Acceptance criteria:</strong> No autonomous action is ever taken; every recommendation has an Approve/Dismiss control and a logged rationale.</p>
+      <p><strong>Dependencies:</strong> F-04, F-05.</p>
+
+      <h3>F-07 · Live Line Map</h3>
+      <p><span class="moscow must">MUST</span></p>
+      <p><strong>Description:</strong> A single visual rendering of every station &mdash; colour-coded by health, tagged by tier, showing buffer occupancy between stations.</p>
+      <p><strong>Dependencies:</strong> F-01 through F-04.</p>
+
+      <h3>F-08 · Outcome Logging &amp; Accuracy Audit Trail</h3>
+      <p><span class="moscow must">MUST</span></p>
+      <p><strong>Description:</strong> Every prediction is logged against its eventual real-world outcome, building the accuracy and savings record leadership uses to approve rollout.</p>
+      <p><strong>User story:</strong> As a leadership sponsor, I want an audited accuracy history, not a one-time accuracy claim, before I approve expansion spend.</p>
+      <p><strong>Dependencies:</strong> F-05, F-06.</p>
+
+      <h3>F-09 · Weekly Trend &amp; Plant Rollup View</h3>
+      <p><span class="moscow should">SHOULD</span></p>
+      <p><strong>Description:</strong> Plant-manager-facing view: recurring at-risk stations across the week, prediction accuracy trend, OEE impact.</p>
+      <p><strong>Dependencies:</strong> F-08.</p>
+
+      <h3>F-10 · Instrumentation Shortlist Generator</h3>
+      <p><span class="moscow should">SHOULD</span></p>
+      <p><strong>Description:</strong> Ranks stations by how much their sensing-tier uncertainty limits overall twin accuracy, so scarce maintenance-window retrofit budget targets the highest-value stations first.</p>
+      <p><strong>Dependencies:</strong> F-04, F-08.</p>
+
+      <h3>F-11 · Vision Upgrade Deployment (Tier C &#8594; B)</h3>
+      <p><span class="moscow should">SHOULD</span></p>
+      <p><strong>Description:</strong> Self-contained camera install at a Tier C station with a usable sightline, upgrading it to Tier B without touching PLC logic or requiring a maintenance window.</p>
+      <p><strong>Dependencies:</strong> F-01, F-02.</p>
+
+      <h3>F-12 · Leadership Business-Case Dashboard</h3>
+      <p><span class="moscow could">COULD</span></p>
+      <p><strong>Description:</strong> Quarterly view translating F-08's audit trail into downtime hours avoided, defect batches caught early, and ROI against instrumentation spend.</p>
+
+      <h3>F-13 · Multi-Site Topology Support</h3>
+      <p><span class="moscow wont">WON'T v1</span></p>
+      <p><strong>Description:</strong> Extending the graph and simulation beyond a single line to a full plant, then multiple plants with differing layouts &mdash; targeted for the Scale phase once the single-line business case is proven.</p>
+    </section>
+
+    <section id="s6">
+      <div class="sec-eyebrow"><span class="num">06</span>User Flow and Journey</div>
+      <h2 class="sec-title">User Flow and Journey</h2>
+
+      <h3>Core Detection-to-Action Flow</h3>
+      <div class="diagram">Station <span class="hl">ST14</span> (Tier C · manual) cycle time drifts +22%
+   <span class="arrow">&#8595;</span> anomaly scorer flags ST14, confidence: LOW (vision/manual-inferred)
+   <span class="arrow">&#8595;</span> propagation sim: buffer before ST17 will empty in ~6 cycles
+   <span class="arrow">&#8595;</span> forecast: ST17&#8211;ST19 will run starved within ~4 minutes
+   <span class="arrow">&#8595;</span> exposure check: VINs #4033&#8211;#4040 built during drift window flagged
+   <span class="arrow">&#8595;</span> supervisor console surfaces: "Schedule inspection of ST14 this shift" <span class="lbl">[Approve] [Dismiss]</span>
+   <span class="arrow">&#8595;</span> supervisor approves <span class="arrow">&#8594;</span> action + outcome logged, line map updates live</div>
+
+      <h3>Onboarding Flow (New Plant/Line)</h3>
+      <p>Register line topology and station tiers (F-01) &#8594; connect read-only MES/SCADA feed for Tier A stations &#8594; install cameras at feasible Tier B stations &#8594; twin begins learning per-station healthy baselines &#8594; first live recommendations surface once baseline history is sufficient (target: within one week).</p>
+
+      <h3>Navigation / Information Architecture</h3>
+      <ul>
+        <li><code>/twin</code> &mdash; Live line map (default supervisor view)</li>
+        <li><code>/twin/station/[id]</code> &mdash; Station detail: tier, confidence, health history, recent flags</li>
+        <li><code>/vehicles/[vin]</code> &mdash; Per-vehicle exposure trace across all stations it passed through</li>
+        <li><code>/actions</code> &mdash; Recommendation queue, pending and historical, with approval log</li>
+        <li><code>/trends</code> &mdash; Plant manager weekly rollup</li>
+        <li><code>/business-case</code> &mdash; Leadership audit trail and ROI dashboard</li>
+      </ul>
+    </section>
+
+    <section id="s7">
+      <div class="sec-eyebrow"><span class="num">07</span>UI/UX Requirements</div>
+      <h2 class="sec-title">UI/UX Requirements</h2>
+
+      <h3>Design Principles</h3>
+      <ul>
+        <li><strong>The floor, abstracted, not decorated</strong> &mdash; the line map reads like the physical layout a supervisor already walks</li>
+        <li><strong>Sensing tier and confidence are never hidden</strong> &mdash; a Tier A read and a Tier C read must look visually distinct everywhere, not just on hover</li>
+        <li><strong>Forecast vs. present tense, visually separated</strong> &mdash; a predicted future bottleneck must never look identical to a current one</li>
+        <li><strong>One action at a time</strong> &mdash; the recommendation queue surfaces the single highest-priority action, not a wall of alerts</li>
+      </ul>
+
+      <h3>Accessibility Requirements</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Requirement</th><th>Standard</th></tr></thead>
+        <tbody>
+          <tr><td>Colour contrast</td><td>WCAG 2.1 AA; severity and tier are never colour-only, always paired with an icon and text label</td></tr>
+          <tr><td>Keyboard navigation</td><td>All interactive elements reachable by keyboard; visible focus ring</td></tr>
+          <tr><td>Screen reader</td><td>Line-map and charts carry ARIA text summaries; confidence bands are announced, not just shown visually</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Responsive Behaviour</h3>
+      <p>Desktop-first for the floor supervisor and plant manager views (control-room and office displays); a simplified mobile view for the recommendation queue and Approve/Dismiss actions only, so a supervisor can act from the floor without needing the full line map on a phone screen.</p>
+
+      <h3>Recommended Screens</h3>
+      <ul>
+        <li>Live Line Map, Station Detail, Vehicle Exposure Trace, Action Queue, Weekly Trend Rollup, Leadership Business-Case Dashboard, Instrumentation Shortlist</li>
+      </ul>
+    </section>
+
+    <section id="s8">
+      <div class="sec-eyebrow"><span class="num">08</span>Technical Requirements</div>
+      <h2 class="sec-title">Technical Requirements</h2>
+
+      <h3>Suggested Architecture</h3>
+      <div class="diagram">LAYER 1 &#8212; SENSING     <span class="lbl">PLC/MES read-only feed  |  Fixture-mounted cameras  |  Checklist entry</span>
+LAYER 2 &#8212; INGEST      <span class="lbl">Event bus, station- and tier-tagged</span>
+LAYER 3 &#8212; INFERENCE   <span class="lbl">Optical-flow feature extraction (Tier B)  |  Isolation Forest per station  |  Confidence model</span>
+LAYER 4 &#8212; TWIN CORE   <span class="lbl">Line graph model  |  Discrete-event propagation simulator</span>
+LAYER 5 &#8212; ACTION      <span class="lbl">Ranked recommendation engine  |  Human approval gate  |  Outcome logger</span>
+LAYER 6 &#8212; PRESENTATION <span class="lbl">Live line map  |  Station/vehicle detail  |  Trend &amp; business-case dashboards</span></div>
+
+      <h3>APIs Needed</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>API</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>MES/SCADA read connector</td><td>Subscribe to existing Tier A telemetry without any write path back into control logic</td></tr>
+          <tr><td>Vision ingestion service</td><td>Receive camera feeds, run optical-flow feature extraction at the edge, forward only extracted features upstream (not raw video)</td></tr>
+          <tr><td>Twin query API</td><td>Serve line map, station detail, and recommendation data to the frontend</td></tr>
+          <tr><td>Outcome-logging API</td><td>Record actual outcomes against prior predictions for the audit trail</td></tr>
+          <tr><td>Notification/alerting API</td><td>Push recommendation cards to supervisor consoles and mobile</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Database Considerations</h3>
+      <ul>
+        <li>Time-series store for per-station feature streams and anomaly scores (high write volume, append-only)</li>
+        <li>Relational store for line topology, station tiers, buffer configuration, and the recommendation/approval log</li>
+        <li>Outcome-log table designed for audit queries (prediction vs. actual) from day one, not bolted on later</li>
+      </ul>
+
+      <h3>Security Requirements</h3>
+      <ul>
+        <li>Strictly read-only integration with PLC/MES/SCADA &mdash; no write path exists at the architecture level, not just by policy</li>
+        <li>Cameras are an independent, non-networked sensing layer with no connection back into control systems</li>
+        <li>Role-based access separating floor supervisor, quality engineer, plant manager, and leadership views</li>
+        <li>Raw video processed at the edge; only extracted features and short flagged-cycle clips (if retained) leave the local network</li>
+      </ul>
+
+      <h3>Scalability Considerations</h3>
+      <ul>
+        <li>Station-tier model is layout-agnostic by construction, so scaling to a new line/site is a configuration exercise, not a re-architecture</li>
+        <li>Edge inference for vision keeps bandwidth flat as camera count grows</li>
+        <li>Propagation simulator scoped per line at MVP; multi-line/plant graph support is an explicit Phase 4 item (F-13), not assumed from day one</li>
+      </ul>
+    </section>
+
+    <section id="s9">
+      <div class="sec-eyebrow"><span class="num">09</span>AI / Automation Requirements</div>
+      <h2 class="sec-title">AI / Automation Requirements</h2>
+
+      <h3>AI Use Cases</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Use Case</th><th>Approach</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr><td>Vision cycle-time &amp; motion-anomaly inference</td><td>Farneback optical flow &#8594; per-cycle feature vector (duration, magnitude profile, directional consistency)</td><td>Inferred cycle time + motion-anomaly score per station cycle</td></tr>
+          <tr><td>Per-station anomaly detection</td><td>Isolation Forest, trained per station on its own operating history</td><td>Anomaly score (0&#8211;1), station-specific</td></tr>
+          <tr><td>Confidence estimation</td><td>Tier-driven base confidence, adjusted for live signal quality at Tier B stations</td><td>Confidence label + numeric value attached to every score</td></tr>
+          <tr><td>Downstream impact forecasting</td><td>Discrete-event queueing simulation seeded by the current anomaly</td><td>Predicted time-to-impact per downstream station, exposed VIN range</td></tr>
+          <tr><td>Recommendation ranking</td><td>Rule-weighted scoring over candidate actions, constrained by feasibility (labour availability, buffer capacity)</td><td>Single top-ranked, explainable action</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Model Suggestions</h3>
+      <p><strong>MVP:</strong> Isolation Forest per station &mdash; unsupervised, so it needs no labelled fault data at launch and solves the cold-start problem inherent to every new deployment. <strong>Phase 2+:</strong> once outcome-logged data (F-08) accumulates, a supervised model (e.g., a temporal convolutional network) can be layered in to name specific fault types rather than a generic anomaly, evaluated against the unsupervised baseline before replacing it.</p>
+
+      <h3>Training/Data Needs</h3>
+      <ul>
+        <li>MVP requires no labelled fault data &mdash; each station's own "healthy" history is sufficient to fit its baseline</li>
+        <li>Outcome logging (F-08) is the mechanism that eventually produces the labelled data a supervised upgrade would need</li>
+        <li>Vision pipeline validation requires ground-truth cycle-time comparison against at least one real Tier A station before any Tier B deployment is trusted</li>
+      </ul>
+
+      <h3>Ethical Considerations</h3>
+      <ul>
+        <li><strong>Human in the loop, always</strong> &mdash; the twin never autonomously halts a line, adjusts control logic, or clears a vehicle</li>
+        <li><strong>No silent guessing</strong> &mdash; a station with degraded or missing signal is marked "unmonitored" or low-confidence, never defaulted to "healthy"</li>
+        <li><strong>Camera scope</strong> &mdash; cameras are positioned on stations/fixtures, not tracking individual operators; only motion features are retained, not identity</li>
+        <li><strong>Model transparency</strong> &mdash; every recommendation names its contributing signals, so floor staff can apply their own judgement rather than blindly trust or dismiss the output</li>
+      </ul>
+    </section>
+
+    <section id="s10">
+      <div class="sec-eyebrow"><span class="num">10</span>Non-Functional Requirements</div>
+      <h2 class="sec-title">Non-Functional Requirements</h2>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Category</th><th>Requirement</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr><td>Performance</td><td>Anomaly-to-recommendation latency</td><td>&lt;30s live, &lt;60s simulated</td></tr>
+          <tr><td>Performance</td><td>Live map refresh</td><td>&lt;2s per station update</td></tr>
+          <tr><td>Reliability</td><td>Vision pipeline continuity on camera dropout</td><td>Station flagged "unmonitored," never silently frozen on stale data</td></tr>
+          <tr><td>Reliability</td><td>Uptime SLA (pilot &#8594; scale)</td><td>99.5% &#8594; 99.9%</td></tr>
+          <tr><td>Compliance</td><td>Data privacy for any camera footage</td><td>Feature-only retention by default; raw video processed at edge and discarded unless explicitly flagged for audit</td></tr>
+          <tr><td>Maintainability</td><td>Test coverage on core prediction pipeline</td><td>&#8805;80%</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="s11">
+      <div class="sec-eyebrow"><span class="num">11</span>Roadmap and Milestones</div>
+      <h2 class="sec-title">Roadmap and Milestones</h2>
+      <h3>MVP Scope</h3>
+      <p>F-01 through F-08 on a single line: station-tier registry, telemetry+vision ingestion, per-station anomaly detection, confidence banding, propagation forecast, recommendation queue, live line map, and outcome logging. Explicitly excludes multi-line topology (F-13) and the leadership ROI dashboard (F-12), which follow once the core mechanism is validated.</p>
+      <div class="phase-row">
+        <div class="phase"><div class="ph-eyebrow">Phase 1 &middot; Weeks 1&#8211;8</div><div class="ph-name">Prove the mechanism</div><p>Working prototype on simulated line with synthetic Tier A/B/C coverage; validate confidence-banded detection against injected-fault scenarios.</p></div>
+        <div class="phase"><div class="ph-eyebrow">Phase 2 &middot; Weeks 9&#8211;20</div><div class="ph-name">Pilot on one real line</div><p>Read-only MES/OT integration, targeted camera install, outcome-logging begins, supervisor view live.</p></div>
+        <div class="phase"><div class="ph-eyebrow">Phase 3 &middot; Months 6&#8211;12</div><div class="ph-name">Prove the business case</div><p>Audited accuracy/savings record; plant manager and leadership views mature; first instrumentation-shortlist retrofit executed.</p></div>
+        <div class="phase"><div class="ph-eyebrow">Phase 4 &middot; Year 2</div><div class="ph-name">Generalise across sites</div><p>Multi-line/plant topology (F-13); re-platform for a second site's layout and sensor maturity.</p></div>
+      </div>
+      <h3>Timeline Estimate</h3>
+      <p>Prototype-to-pilot in approximately 5 months; pilot-to-audited-business-case in approximately 12 months; second-site expansion targeted for year two, contingent on Phase 3's outcome data.</p>
+    </section>
+
+    <section id="s12">
+      <div class="sec-eyebrow"><span class="num">12</span>Risk Analysis</div>
+      <h2 class="sec-title">Risk Analysis</h2>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Risk</th><th>Category</th><th>Severity</th><th>Mitigation</th></tr></thead>
+        <tbody>
+          <tr><td>False alarms erode floor-level trust faster than they build it</td><td>Operational</td><td><span class="risk-sev sev-crit"></span>Critical</td><td>Confidence-banded predictions (F-04); back-testing before any model goes live; outcome log (F-08) surfaced back to the floor so accuracy is visible, not asserted</td></tr>
+          <tr><td>Vision inference too noisy on real factory-floor lighting/occlusion to trust</td><td>Technical</td><td><span class="risk-sev sev-crit"></span>Critical</td><td>Live signal-quality monitoring feeds directly into the confidence model; low-quality Tier B reads are demoted, never hidden</td></tr>
+          <tr><td>Multi-causal root causes get mis-attributed to the wrong factor</td><td>Technical</td><td><span class="risk-sev sev-high"></span>High</td><td>Recommendations name ranked contributing signals, not a single asserted cause &mdash; framed for human judgement, not automated diagnosis</td></tr>
+          <tr><td>Model tuned to one line's data doesn't transfer to another site</td><td>Market/Technical</td><td><span class="risk-sev sev-high"></span>High</td><td>Station-tier modelling is layout-agnostic by construction; Phase 4 explicitly tests and corrects this before wider rollout</td></tr>
+          <tr><td>Long enterprise sales/integration cycle stalls adoption</td><td>Market</td><td><span class="risk-sev sev-high"></span>High</td><td>Read-only, no-maintenance-window deployment (F-02) removes the biggest procurement blocker &mdash; no control-system change request required to start a pilot</td></tr>
+          <tr><td>Scope creep toward a full physics-accurate twin</td><td>Operational</td><td><span class="risk-sev sev-med"></span>Medium</td><td>Explicit modelled-vs-inferred boundary (Section 2, F-01/F-02) is a standing constraint revisited at every phase gate</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="s13">
+      <div class="sec-eyebrow"><span class="num">13</span>Analytics and Tracking</div>
+      <h2 class="sec-title">Analytics and Tracking</h2>
+      <ul>
+        <li><strong>anomaly_flagged</strong> &mdash; station, tier, confidence, contributing features</li>
+        <li><strong>propagation_forecasted</strong> &mdash; source station, predicted affected stations, predicted VIN range, lead time</li>
+        <li><strong>recommendation_shown / approved / dismissed</strong> &mdash; action type, time-to-decision</li>
+        <li><strong>forecast_outcome_logged</strong> &mdash; predicted vs. actual downstream impact (the core model-quality signal feeding F-08)</li>
+        <li><strong>vision_confidence_degraded</strong> &mdash; station, reason (lighting/occlusion/angle), frequency &mdash; feeds the instrumentation shortlist (F-10)</li>
+      </ul>
+      <h3>Reporting Dashboards</h3>
+      <p>Weekly trend rollup (F-09) for plant managers; quarterly business-case dashboard (F-12) for leadership; a model-quality dashboard tracking precision/recall against the outcome log for the product team.</p>
+    </section>
+
+    <section id="s14">
+      <div class="sec-eyebrow"><span class="num">14</span>Testing Strategy</div>
+      <h2 class="sec-title">Testing Strategy</h2>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Test Type</th><th>What's Verified</th></tr></thead>
+        <tbody>
+          <tr><td>Unit</td><td>Feature extraction correctness, anomaly-score bounds, confidence-model output per tier</td></tr>
+          <tr><td>Integration</td><td>Full ingest &#8594; anomaly &#8594; propagation &#8594; recommendation flow on synthetic data; read-only enforcement against MES/SCADA mocks</td></tr>
+          <tr><td>UAT</td><td>Pilot-line supervisors and quality engineers validate that recommendations are actionable and confidence bands are trusted</td></tr>
+          <tr><td>Edge cases</td><td>Camera dropout mid-shift; a station with zero historical data; simultaneous anomalies at two adjacent stations; a Tier C station with no feasible camera sightline</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="s15">
+      <div class="sec-eyebrow"><span class="num">15</span>Deployment Strategy</div>
+      <h2 class="sec-title">Deployment Strategy</h2>
+      <p><strong>CI/CD:</strong> standard staged pipeline (unit &#8594; integration &#8594; staging replay against recorded line data &#8594; production) for the twin core and dashboards; vision-model updates additionally validated against the ground-truth benchmark station before rollout. <strong>Hosting:</strong> edge inference for vision (on-prem or plant-local compute, to avoid streaming raw video off the floor) with the twin core, dashboards, and outcome log hosted in cloud SaaS. <strong>Rollback:</strong> a new model version runs in shadow mode alongside the current one until its predictions are validated against the outcome log, before it is promoted to drive live recommendations.</p>
+    </section>
+
+    <section id="s16">
+      <div class="sec-eyebrow"><span class="num">16</span>Future Enhancements</div>
+      <h2 class="sec-title">Future Enhancements</h2>
+      <ul>
+        <li><strong>Cross-line and whole-plant topology</strong> (F-13) &mdash; propagation modelling across line-to-line buffers and shared sub-assembly feeds</li>
+        <li><strong>Supervised fault classification</strong> &mdash; once outcome-logged data is sufficient, move from generic anomaly to named defect-type prediction per VIN</li>
+        <li><strong>Maintenance correlation</strong> &mdash; link recurring vision-flagged motion anomalies to upcoming equipment wear, feeding predictive maintenance scheduling</li>
+        <li><strong>CMMS/ERP integration</strong> &mdash; auto-raise work orders in existing SAP PM/Maximo systems from approved recommendations</li>
+        <li><strong>Operator-fatigue-aware baselines</strong> &mdash; shift-position-aware normal ranges, since a station's "normal" motion pattern legitimately shifts across an 8-hour shift</li>
+      </ul>
+    </section>
+
+    <section id="s17" style="border-bottom:none;">
+      <div class="sec-eyebrow"><span class="num">17</span>Final Recommendations</div>
+      <h2 class="sec-title">Final Recommendations</h2>
+      <h3>Go-to-Market Suggestions</h3>
+      <p>Lead with the read-only, no-maintenance-window deployment story &mdash; it is the single biggest lever against the 6&#8211;12 month enterprise sales cycle risk, since it removes the control-system change request that normally gates a pilot. Offer a scoped, time-boxed pilot on one line with an explicit outcome-logging commitment, so the audited accuracy record (F-08) becomes the sales asset for expansion, not a marketing claim.</p>
+      <h3>Growth Strategy</h3>
+      <p>Land on one line, prove the business case with real outcome-logged data, then expand within the same plant before pursuing a second site &mdash; each expansion is justified by the previous site's audit trail rather than a fresh pitch. The instrumentation shortlist (F-10) doubles as a natural expansion mechanism: as a plant sees value, it invests its own scarce maintenance-window budget in the stations the twin itself has identified as highest-value.</p>
+      <h3>Product Positioning</h3>
+      <p>DigitalTwin.ai is not a competitor to full physics-accurate digital-twin platforms, nor to end-of-line vision inspection, nor to CMMS &mdash; it is the layer that is missing between them: multi-tier sensing fused with forward prediction, built for the line as it actually is, not the line an enterprise twin assumes it should be.</p>
+    </section>
+
+    <footer>DigitalTwin.ai &mdash; Product Requirements Document v2.0 &mdash; Team CUBIX, incorporating Round 2 station-tier model, propagation prototype, and business case.</footer>
+  </main>
+</div>

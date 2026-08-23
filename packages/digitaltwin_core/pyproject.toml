@@ -1,0 +1,17 @@
+[project]
+name = "digitaltwin-core"
+version = "0.1.0"
+description = "Predictive engine for DigitalTwin.ai — station-tier anomaly detection and propagation forecasting"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "scipy",
+    "scikit-learn",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["digitaltwin_core*"]
